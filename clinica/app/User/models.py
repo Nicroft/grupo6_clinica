@@ -4,9 +4,9 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 class UserManager(BaseUserManager):
     def create_user(self, email, username, password=None):
         if not email:
-            raise ValueError('Users must have an email address')
+            raise ValueError('El usuario debe tener una dirección de correo electrónico.')
         if not username:
-            raise ValueError('Users must have a username')
+            raise ValueError('El usuario debe tener un nombre de usuario.')
 
         user = self.model(
             email=self.normalize_email(email),
@@ -18,9 +18,9 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, email, username, password=None):
         user = self.create_user(
-            email,
-            password=password,
+            email=email,
             username=username,
+            password=password,
         )
         user.is_admin = True
         user.save(using=self._db)
@@ -33,13 +33,13 @@ class User(AbstractBaseUser):
         ('Administrativo', 'Administrativo'),
     )
 
-    email = models.EmailField(verbose_name='email', max_length=255, unique=True)
-    username = models.CharField(max_length=255, unique=True)
-    full_name = models.CharField(max_length=255)
-    phone_number = models.CharField(max_length=20)
-    birth_date = models.DateField()
-    address = models.CharField(max_length=255)
-    role = models.CharField(max_length=50, choices=ROLES)
+    email = models.EmailField(verbose_name='Correo Electrónico', max_length=255, unique=True)
+    username = models.CharField(verbose_name='Nombre de Usuario', max_length=255, unique=True)
+    full_name = models.CharField(verbose_name='Nombre Completo', max_length=255)
+    phone_number = models.CharField(verbose_name='Número de Teléfono', max_length=20)
+    birth_date = models.DateField(verbose_name='Fecha de Nacimiento')
+    address = models.CharField(verbose_name='Dirección', max_length=255)
+    role = models.CharField(verbose_name='Rol', max_length=50, choices=ROLES)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 

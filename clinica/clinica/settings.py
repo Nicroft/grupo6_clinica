@@ -44,7 +44,14 @@ INSTALLED_APPS = [
     'app.MedicalRecord',
     'app.Billing',
     'app.Appointment',
+    'rest_framework_simplejwt',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -85,7 +92,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'TestDB',
         'USER': 'postgres',
-        'PASSWORD': 'lingohaky8103*',
+        'PASSWORD': 'lulu2804',
         'HOST': 'localhost',
         'PORT': '5432',
     }
